@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 //@Disabled
 @TeleOp(name = "DangerDrive", group = "Swerve")
-@Disabled
+//@Disabled
 public class DangerDrive extends LinearOpMode {
 
     // --- 1. HARDWARE DECLARATIONS ---
@@ -162,18 +162,18 @@ public class DangerDrive extends LinearOpMode {
 
     private void initializeHardware() {
         // --- Swerve Drive Hardware ---
-        frontLeftDrive  = hardwareMap.get(DcMotor.class, "frontLeftDrive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
-        backLeftDrive   = hardwareMap.get(DcMotor.class, "backLeftDrive");
-        backRightDrive  = hardwareMap.get(DcMotor.class, "backRightDrive");
-        frontLeftSteer  = hardwareMap.get(CRServo.class, "frontLeftSteer");
-        frontRightSteer = hardwareMap.get(CRServo.class, "frontRightSteer");
-        backLeftSteer   = hardwareMap.get(CRServo.class, "backLeftSteer");
-        backRightSteer  = hardwareMap.get(CRServo.class, "backRightSteer");
-        frontLeftEncoder  = hardwareMap.get(AnalogInput.class, "frontLeftEncoder");
-        frontRightEncoder = hardwareMap.get(AnalogInput.class, "frontRightEncoder");
-        backLeftEncoder   = hardwareMap.get(AnalogInput.class, "backLeftEncoder");
-        backRightEncoder  = hardwareMap.get(AnalogInput.class, "backRightEncoder");
+        frontLeftDrive  = hardwareMap.get(DcMotor.class, "frontLeftDrive"); // Motor Port 0
+        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive"); // Motor Port 1
+        backLeftDrive   = hardwareMap.get(DcMotor.class, "backLeftDrive"); // Motor Port 2
+        backRightDrive  = hardwareMap.get(DcMotor.class, "backRightDrive"); // Motor Port 3
+        frontLeftSteer  = hardwareMap.get(CRServo.class, "frontLeftSteer"); // Servo Port 0
+        frontRightSteer = hardwareMap.get(CRServo.class, "frontRightSteer"); // Servo Port 1
+        backLeftSteer   = hardwareMap.get(CRServo.class, "backLeftSteer"); // Servo Port 4
+        backRightSteer  = hardwareMap.get(CRServo.class, "backRightSteer"); // Servo Port 5
+        frontLeftEncoder  = hardwareMap.get(AnalogInput.class, "frontLeftEncoder"); // Analog Input Devices Port 0
+        frontRightEncoder = hardwareMap.get(AnalogInput.class, "frontRightEncoder"); // Analog Input Devices Port 1
+        backLeftEncoder   = hardwareMap.get(AnalogInput.class, "backLeftEncoder"); // Analog Input Devices Port 2
+        backRightEncoder  = hardwareMap.get(AnalogInput.class, "backRightEncoder"); // Analog Input Devices Port 3
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
         imu = hardwareMap.get(IMU.class, "imu");
 
