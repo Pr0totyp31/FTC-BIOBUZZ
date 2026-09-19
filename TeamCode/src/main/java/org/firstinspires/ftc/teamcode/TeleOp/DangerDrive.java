@@ -33,10 +33,10 @@ public class DangerDrive extends LinearOpMode {
     final double R = Math.hypot(TRACK_WIDTH, WHEELBASE);
 
     // --- 3. CRITICAL: OFFSETS (Using your measured values) ---
-    final double FRONT_LEFT_OFFSET  = 1.34;
-    final double FRONT_RIGHT_OFFSET = 3.161;
-    final double BACK_LEFT_OFFSET   = 1.589;
-    final double BACK_RIGHT_OFFSET  = 1.237;
+    final double FRONT_LEFT_OFFSET  = 0.05;
+    final double FRONT_RIGHT_OFFSET = 1.39;
+    final double BACK_LEFT_OFFSET   = 3.16;
+    final double BACK_RIGHT_OFFSET  = 0.82;
 
     // --- 4. TUNING PARAMETERS ---
     final double STEER_KP = 0.6;
@@ -100,6 +100,23 @@ public class DangerDrive extends LinearOpMode {
             }
 
 
+            if (gamepad1.a) {
+                frontLeftSteer.setPower(0.5);
+                frontLeftDrive.setPower(0.5);
+            }
+            if (gamepad1.b) {
+                frontRightSteer.setPower(0.5);
+                frontRightDrive.setPower(0.5);
+            }
+            if (gamepad1.x) {
+                backLeftSteer.setPower(0.5);
+                backLeftDrive.setPower(0.5);
+            }
+            if (gamepad1.y) {
+                backRightSteer.setPower(0.5);
+                backRightDrive.setPower(0.5);
+            }
+
 
 
             // ------ DRIVE INPUTS (ROBOT-CENTRIC) ------ //
@@ -150,9 +167,9 @@ public class DangerDrive extends LinearOpMode {
             }
 
             // Apply swerve module outputs
-            runModule(frontLeftDrive, frontLeftSteer, frontLeftEncoder, FRONT_LEFT_OFFSET, speedFrontLeft, targetAngleFL);
+            runModule(frontLeftDrive, frontLeftSteer, frontLeftEncoder, FRONT_LEFT_OFFSET, -speedFrontLeft, targetAngleFL);
             runModule(frontRightDrive, frontRightSteer, frontRightEncoder, FRONT_RIGHT_OFFSET, speedFrontRight, targetAngleFR);
-            runModule(backLeftDrive, backLeftSteer, backLeftEncoder, BACK_LEFT_OFFSET, speedBackLeft, targetAngleBL);
+            runModule(backLeftDrive, backLeftSteer, backLeftEncoder, BACK_LEFT_OFFSET, -speedBackLeft, targetAngleBL);
             runModule(backRightDrive, backRightSteer, backRightEncoder, BACK_RIGHT_OFFSET, speedBackRight, targetAngleBR);
 
         }
@@ -162,18 +179,18 @@ public class DangerDrive extends LinearOpMode {
 
     private void initializeHardware() {
         // --- Swerve Drive Hardware ---
-        frontLeftDrive  = hardwareMap.get(DcMotor.class, "frontLeftDrive"); // Motor Port 0
-        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive"); // Motor Port 1
-        backLeftDrive   = hardwareMap.get(DcMotor.class, "backLeftDrive"); // Motor Port 2
-        backRightDrive  = hardwareMap.get(DcMotor.class, "backRightDrive"); // Motor Port 3
+        frontLeftDrive  = hardwareMap.get(DcMotor.class, "frontLeftDrive"); // Motor Port 3
+        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive"); // Motor Port 2
+        backLeftDrive   = hardwareMap.get(DcMotor.class, "backLeftDrive"); // Motor Port 1
+        backRightDrive  = hardwareMap.get(DcMotor.class, "backRightDrive"); // Motor Port 0
         frontLeftSteer  = hardwareMap.get(CRServo.class, "frontLeftSteer"); // Servo Port 0
         frontRightSteer = hardwareMap.get(CRServo.class, "frontRightSteer"); // Servo Port 1
-        backLeftSteer   = hardwareMap.get(CRServo.class, "backLeftSteer"); // Servo Port 4
-        backRightSteer  = hardwareMap.get(CRServo.class, "backRightSteer"); // Servo Port 5
+        backLeftSteer   = hardwareMap.get(CRServo.class, "backLeftSteer"); // Servo Port 5
+        backRightSteer  = hardwareMap.get(CRServo.class, "backRightSteer"); // Servo Port 4
         frontLeftEncoder  = hardwareMap.get(AnalogInput.class, "frontLeftEncoder"); // Analog Input Devices Port 0
         frontRightEncoder = hardwareMap.get(AnalogInput.class, "frontRightEncoder"); // Analog Input Devices Port 1
-        backLeftEncoder   = hardwareMap.get(AnalogInput.class, "backLeftEncoder"); // Analog Input Devices Port 2
-        backRightEncoder  = hardwareMap.get(AnalogInput.class, "backRightEncoder"); // Analog Input Devices Port 3
+        backLeftEncoder   = hardwareMap.get(AnalogInput.class, "backLeftEncoder"); // Analog Input Devices Port 3
+        backRightEncoder  = hardwareMap.get(AnalogInput.class, "backRightEncoder"); // Analog Input Devices Port 2
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -249,12 +266,12 @@ public class DangerDrive extends LinearOpMode {
         for (DcMotor motor : driveMotors) { motor.setPower(0); }
         for (CRServo servo : steerServos) { servo.setPower(0); }
 
-        //telemetry.addData("Mode", "**CALIBRATION - PID DISABLED**");
-        // telemetry.addData("FL Raw Angle", getRawAngle(frontLeftEncoder));
-        // telemetry.addData("FR Raw Angle", getRawAngle(frontRightEncoder));
-        // telemetry.addData("BL Raw Angle", getRawAngle(backLeftEncoder));
-        //  telemetry.addData("BR Raw Angle", getRawAngle(backRightEncoder));
-        //  telemetry.addData("Exit", "Press Right Stick Button (R3) to EXIT.");
+        telemetry.addData("Mode", "**CALIBRATION - PID DISABLED**");
+        telemetry.addData("FL Raw Angle", getRawAngle(frontLeftEncoder));
+        telemetry.addData("FR Raw Angle", getRawAngle(frontRightEncoder));
+        telemetry.addData("BL Raw Angle", getRawAngle(backLeftEncoder));
+        telemetry.addData("BR Raw Angle", getRawAngle(backRightEncoder));
+        telemetry.addData("Exit", "Press Right Stick Button (R3) to EXIT.");
         telemetry.update();
     }
 }
